@@ -12,7 +12,7 @@ namespace Cosmetics.Test
         public void CheckIfNull_ShouldThrowNullReferenceException_WhenTheParameterObjIsNull()
         {
             object obj = null;
-            string str = null;
+            string str = "anyString";
 
             Assert.Throws<NullReferenceException>(() => Validator.CheckIfNull(obj, str));
         }

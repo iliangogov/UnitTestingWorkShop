@@ -15,16 +15,17 @@ namespace Cosmetics.Test
         [Test]
         public void ParseShouldReturn_NewCommand_WhenTheInputStringIsInItheRequiredValidFormat()
         {
-           var command= Command.Parse("xxx y");
+            string validInput = "xxx y";
+            var command = Command.Parse(validInput);
             Assert.IsInstanceOf(typeof(Command), command);
         }
         [Test]
         //**Parse** should set correct values to the newly returned Command object's Properties ("Name" & "Parameters"), when the "input" string is in the valid required format.
         public void ParseShouldSetCorrectValuesToTheNewlyReturnedCommandObjectPropertiesNameParametersWhenTheInputStringIsInTheValidRequiredFormat()
         {
-            var test=Command.Parse("xxx y z");
+            var test = Command.Parse("xxx y z");
             Assert.AreEqual(test.Name, "xxx");
-            Assert.AreEqual(test.Parameters.IndexOf("y"),0);
+            Assert.AreEqual(test.Parameters.IndexOf("y"), 0);
             Assert.AreEqual(test.Parameters.IndexOf("z"), 1);
         }
 
@@ -33,17 +34,19 @@ namespace Cosmetics.Test
         public void ParseShouldThrowArgumentNullExceptionWithMessageThatContainsTheStringNameWhenTheInputStringThatRepresentsTheCommandNameIsNullOrEmpty()
         {
             string expected = "Name";
-            var actual= Assert.Throws<ArgumentNullException>(() => Command.Parse(String.Empty)).Message;
-            StringAssert.Contains(expected, actual);
+            //var actual = Assert.Throws<ArgumentNullException>(() => Command.Parse(String.Empty)).Message;
+            Assert.That(() => Command.Parse("  x"), Throws.ArgumentNullException.With.Message.Contains(expected));
+            // StringAssert.Contains(expected, actual);
         }
 
         //**Parse** should throw **ArgumentNullException** with a message that contains the string "List", when the "input" string that represents the Command Parameters is Null or Empty.
         [Test]
-        public void ParseShouldThrowArgumentNullExceptionWithMessageThatContainsTheStringListWhenTheInputStringThatRepresentsTheCommandParametersIsNullOrEmpty ()
+        public void ParseShouldThrowArgumentNullExceptionWithMessageThatContainsTheStringListWhenTheInputStringThatRepresentsTheCommandParametersIsNullOrEmpty()
         {
             string expected = "List";
-            var actual = Assert.Throws<ArgumentNullException>(() => Command.Parse("xxx ")).Message;
-            StringAssert.Contains(expected, actual);
+            //var actual = Assert.Throws<ArgumentNullException>(() => Command.Parse("xxx ")).Message;
+            //StringAssert.Contains(expected, actual);
+            Assert.That(() => Command.Parse("xxx  "), Throws.ArgumentNullException.With.Message.Contains(expected));
         }
     }
 }
